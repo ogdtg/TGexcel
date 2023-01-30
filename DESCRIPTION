@@ -11,5 +11,11 @@ URL: {{ URL }}
 BugReports: {{ BugReports }}
 Encoding: UTF-8
 Imports: 
-    openxlsx
+    magrittr,
+    openxlsx,
+    purrr,
+    stringr
 RoxygenNote: 7.2.1
+Depends: 
+    R (>= 2.10)
+LazyData: true
