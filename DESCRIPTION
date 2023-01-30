@@ -1,0 +1,9 @@
+Package: TGexcel
+Title: TGexcel
+Version: 0.0.0.9000
+Authors@R: person('Felix', 'Lorenz', email = 'felix.lorenz@tg.ch', role = c('cre', 'aut'))
+Description: Das Package soll dabei helfen Internettabellen im jetzigen Format direkt aus R heraus erstellen zu können, ohne Excel verwenden zu müssen.
+License: MIT + file LICENSE
+URL: {{ URL }}
+BugReports: {{ BugReports }}
+Encoding: UTF-8
