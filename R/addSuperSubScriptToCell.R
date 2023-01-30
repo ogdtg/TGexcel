@@ -7,14 +7,21 @@
 #' @param row row index
 #' @param col col index
 #' @param texto data to write
-#'
-#'
+#' @param style cell style
+#' @param colour font colour in hex represenation (default is black -> default = '000000')
 #'
 addSuperSubScriptToCell <- function(wb,
-                                            sheet,
-                                            row,
-                                            col,
-                                            texto) {
+                                    sheet,
+                                    row,
+                                    col,
+                                    texto,
+                                    style,
+                                    colour = '000000') {
+
+  font <- style$fontName
+  family <- style$fontFamily
+  size <- style$fontSize
+  fDec <- style$fontDecoration
 
   placeholderText <- 'This is placeholder text that should not appear anywhere in your document.'
 
@@ -44,6 +51,19 @@ addSuperSubScriptToCell <- function(wb,
   } else if (length(sub_sup_text) > length(normal_text)) {
     normal_text <- c(normal_text, "")
   }
+
+  #formatting instructions
+
+  sz    <- paste('<sz val =\"',size,'\"/>',
+                 sep = '')
+  col   <- paste('<color rgb =\"',colour,'\"/>',
+                 sep = '')
+  rFont <- paste('<rFont val =\"',font,'\"/>',
+                 sep = '')
+  fam   <- paste('<family val =\"',family,'\"/>',
+                 sep = '')
+
+
   # this is the separated text which will be used next
   texto_separado <- purrr::map2(normal_text, sub_sup_text, ~ c(.x, .y)) %>%
     purrr::reduce(c) %>%
@@ -68,6 +88,20 @@ addSuperSubScriptToCell <- function(wb,
     stringr::str_remove_all(texto, "\\[|\\]|~")
   }
 
+  if (length(fDec)>0) {
+    #formating
+    if(fDec=="BOLD"){
+      bld <- '<b/>'
+    } else{bld <- ''}
+
+    if(fDec=="ITALIC"){
+      itl <- '<i/>'
+    } else{itl <- ''}
+  } else {
+    bld <-  ""
+    itl <- ""
+  }
+
 
 
   #get all properties from one element of texto_separado
@@ -76,6 +110,12 @@ addSuperSubScriptToCell <- function(wb,
 
     paste0('<r><rPr>',
            sub_sup_no(texto),
+           sz,
+           col,
+           rFont,
+           fam,
+           bld,
+           itl,
            '</rPr><t xml:space="preserve">',
            get_text_sub_sup(texto),
            '</t></r>')

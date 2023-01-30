@@ -4,7 +4,7 @@
 \alias{addSuperSubScriptToCell}
 \title{addSuperSubScriptToCell}
 \usage{
-addSuperSubScriptToCell(wb, sheet, row, col, texto)
+addSuperSubScriptToCell(wb, sheet, row, col, texto, style, colour = "000000")
 }
 \arguments{
 \item{wb}{a workbook object}
@@ -16,6 +16,10 @@ addSuperSubScriptToCell(wb, sheet, row, col, texto)
 \item{col}{col index}
 
 \item{texto}{data to write}
+
+\item{style}{cell style}
+
+\item{colour}{font colour in hex represenation (default is black -> default = '000000')}
 }
 \description{
 See https://github.com/awalker89/openxlsx/issues/407#issuecomment-841870240

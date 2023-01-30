@@ -12,7 +12,8 @@ create_style_generic(
   startRow,
   style,
   vectorised = FALSE,
-  style_only = FALSE
+  style_only = FALSE,
+  startCol = 1
 )
 }
 \arguments{
@@ -31,6 +32,8 @@ create_style_generic(
 \item{vectorised}{if a vector is given for text, vectorised must be set to TRUE (default = FALSE)}
 
 \item{style_only}{if set to TRUE, text will be ignored and only the style will be set (default = FALSE)}
+
+\item{startCol}{col in which the function should start (default = 1)}
 }
 \description{
 create_style_generic

@@ -18,7 +18,10 @@ create_nested_header_style <-  function(wb, sheet, vars_level1, vars_level2, nes
   # Can the levels be evenly distributed
   modulu_slots <- lv2 %% lv1
 
-  if (length(nesting)==1) {
+  # Length of nesting vec
+  length_nest <- length(nesting)
+
+  if (length_nest < 2) {
     if (modulu_slots != 0 & nesting == "even") {
       stop("Number of vars_level1 must be dividable by the length of vars_level2. Even distribution is not possible.")
     }
