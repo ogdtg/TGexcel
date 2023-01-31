@@ -2,6 +2,7 @@
 "_PACKAGE"
 
 ## usethis namespace: start
+#' @importFrom openxlsx setRowHeights
 #' @importFrom purrr discard
 #' @importFrom purrr map
 #' @importFrom purrr map2

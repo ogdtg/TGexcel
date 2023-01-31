@@ -11,6 +11,7 @@ create_header_style(
   text,
   startRow = 1,
   style = header_bold_12_left,
+  rowHeight = 18.75,
   ...
 )
 }
@@ -26,6 +27,10 @@ create_header_style(
 \item{startRow}{row in which the header should be placed (default = 1)}
 
 \item{style}{an openxlsx::Style element. Default is current "Internettabellen" header style}
+
+\item{rowHeight}{height of the row(s)}
+
+\item{...}{see create_style_generic}
 }
 \description{
 create_header_style

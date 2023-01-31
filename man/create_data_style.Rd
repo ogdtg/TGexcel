@@ -31,7 +31,7 @@ create_data_style(
 
 \item{data}{a data.frame}
 
-\item{datenquelle}{data source (default = NULL)}
+\item{gemeinde}{if true formating for Gemeinde tables will be included (bold for Bezirk and Kanton) (default = FALSE)}
 }
 \description{
 create_data_style

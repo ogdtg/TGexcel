@@ -10,6 +10,8 @@
 #' @param style_only if set to TRUE, text will be ignored and only the style will be set (default = FALSE)
 #' @param startCol col in which the function should start (default = 1)
 #'
+#' @export
+#' 
 create_style_generic <- function(wb, sheet, ncol,text, startRow, style, vectorised = FALSE, style_only = FALSE, startCol = 1) {
 
 

@@ -11,6 +11,7 @@ create_subheader_style(
   text,
   startRow = 2,
   style = subheader_normal_10_left,
+  rowHeight = 15,
   ...
 )
 }
@@ -26,6 +27,10 @@ create_subheader_style(
 \item{startRow}{row in which the subheader should be placed (default = 2)}
 
 \item{style}{an openxlsx::Style element. Default is current "Internettabellen" subheader style}
+
+\item{rowHeight}{height of the row(s)}
+
+\item{...}{see create_style_generic}
 }
 \description{
 create_subheader_style

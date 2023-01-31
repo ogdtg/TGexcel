@@ -1,4 +1,6 @@
 #' create_data_style
+#' 
+#' Function to insert and style data in the style of the Internettabellen
 #'
 #' @param wb a workbook object
 #' @param sheet the name of the Sheet in the workbook object
@@ -7,7 +9,7 @@
 #' @param year index of a year variable (default=NULL)
 #' @param startCol col in which the data should start
 #' @param data a data.frame
-#' @param datenquelle data source (default = NULL)
+#' @param gemeinde if true formating for Gemeinde tables will be included (bold for Bezirk and Kanton) (default = FALSE)
 #'
 #' @export
 #'
@@ -62,7 +64,7 @@ create_data_style <- function(wb,sheet,startRow, date = NULL,year = NULL, startC
         openxlsx::addStyle(wb = wb,
                            sheet = sheet,
                            cols = startCol+x-1,
-                           rows = gemeinde_format_vec+startRow-1,,
+                           rows = gemeinde_format_vec+startRow-1,
                            style = style_gemeinde_year)
 
 
@@ -77,28 +79,14 @@ create_data_style <- function(wb,sheet,startRow, date = NULL,year = NULL, startC
       }
 
     })
+    
+    # Zeilenhöhe setzen
+    openxlsx::setRowHeights(wb=wb, sheet = sheet, rows = gemeinde_format_vec+startRow-1, heights = 30)
   }
 
 
 
-  # Datenquelle
-  if (!is.null(datenquelle)) {
-    datenquelle_italic_9_left <- datenquelle_italic_9_left
 
-    openxlsx::writeData(x = paste0("Datenquelle: ",datenquelle),
-                        wb = wb,
-                        sheet = sheet,
-                        startCol = startCol,
-                        startRow = startRow+nrow(data)+2,
-                        colNames = FALSE)
-
-    openxlsx::addStyle(wb = wb,
-                       sheet = sheet,
-                       cols = startCol,
-                       rows = startRow+nrow(data)+2,
-                       style = datenquelle_italic_9_left)
-
-  }
 
 
 }

@@ -6,12 +6,14 @@
 #' @param text the text of the header
 #' @param startRow row in which the header should be placed (default = 1)
 #' @param style an openxlsx::Style element. Default is current "Internettabellen" header style
+#' @param rowHeight height of the row(s)
+#' @param ... see create_style_generic
 #'
 #' @export
 #'
-create_header_style <- function(wb, sheet, ncol,text, startRow = 1,style = header_bold_12_left,...) {
+create_header_style <- function(wb, sheet, ncol,text, startRow = 1,style = header_bold_12_left,rowHeight = 18.75,...) {
   
   create_style_generic(wb = wb, sheet = sheet, ncol= ncol,text=text, startRow = startRow,style = style,...)
-
+  openxlsx::setRowHeights(wb,sheet,rows=startRow,heights = rowHeight)
 
 }

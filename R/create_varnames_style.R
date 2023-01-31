@@ -1,4 +1,6 @@
 #' create_varnames_style
+#' 
+#' Function to insert and style variable names in the style of the Internettabellen
 #'
 #' @param wb a workbook object
 #' @param sheet the name of the Sheet in the workbook object
