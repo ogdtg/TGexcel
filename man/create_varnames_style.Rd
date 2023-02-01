@@ -30,5 +30,5 @@ create_varnames_style(
 \item{ncol}{only necessary if var_names are NULL (style_only). Provide a positive integer.}
 }
 \description{
-create_varnames_style
+Function to insert and style variable names in the style of the Internettabellen
 }

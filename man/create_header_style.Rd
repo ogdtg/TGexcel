@@ -33,5 +33,5 @@ create_header_style(
 \item{...}{see create_style_generic}
 }
 \description{
-create_header_style
+Function to insert and style a header in the style of the Internettabellen
 }

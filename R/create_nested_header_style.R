@@ -49,21 +49,35 @@ create_nested_header_style <-  function(wb, sheet, vars_level1, vars_level2, nes
 
   }
 
-  create_varnames_style(wb = wb, sheet=sheet, startRow = startRow+1,var_names = vars_level2,style = vars_level1_style,...)
-  create_varnames_style(wb = wb, sheet=sheet, startRow = startRow,ncol = lv2,style_only = TRUE,style = vars_level2_style,...)
+  create_varnames_style(wb = wb, sheet=sheet, startRow = startRow+1,var_names = vars_level2,style = vars_level2_style,...)
+  create_varnames_style(wb = wb, sheet=sheet, startRow = startRow,ncol = lv2,style_only = TRUE,style = vars_level1_style,...)
 
 
   if (nesting=="even") {
     merge_size <- lv2/lv1
     start = 1
     for (i in 1: lv1) {
+      
+      
+      
       openxlsx::mergeCells(wb,sheet,cols = start:(start+merge_size-1), rows = startRow )
+      
+      if (grepl("\\[.*\\]", vars_level1[i]) | grepl("\\~.*\\~", vars_level1[i])) {
+        addSuperSubScriptToCell(wb=wb,
+                                sheet = sheet,
+                                col = start,
+                                row = startRow,
+                                texto = vars_level1[i],
+                                style = vars_level1_style)
+      } else {
+        openxlsx::writeData(x = vars_level1[i],
+                                  wb = wb,
+                                  sheet = sheet,
+                                  startCol = start,
+                                  startRow = startRow)
+        }
 
-      openxlsx::writeData(x = vars_level1[i],
-                          wb = wb,
-                          sheet = sheet,
-                          startCol = start,
-                          startRow = startRow)
+      
 
       start = start + merge_size
 
@@ -73,13 +87,27 @@ create_nested_header_style <-  function(wb, sheet, vars_level1, vars_level2, nes
     nesting = unlist(nesting)
     start = 1
     for (i in 1:length(nesting)) {
+      
+      
+      
       merge_size <- nesting[i]
       openxlsx::mergeCells(wb,sheet,cols = start:(start+merge_size-1), rows = startRow)
-      openxlsx::writeData(x = vars_level1[i],
-                          wb = wb,
-                          sheet = sheet,
-                          startCol = start,
-                          startRow = startRow)
+      
+      if (grepl("\\[.*\\]", vars_level1[i]) | grepl("\\~.*\\~", vars_level1[i])) {
+        addSuperSubScriptToCell(wb=wb,
+                                sheet = sheet,
+                                col = start,
+                                row = startRow,
+                                texto = vars_level1[i],
+                                style = vars_level1_style)
+      } else {
+        openxlsx::writeData(x = vars_level1[i],
+                            wb = wb,
+                            sheet = sheet,
+                            startCol = start,
+                            startRow = startRow)
+      }
+      
 
       start <- merge_size+start
 

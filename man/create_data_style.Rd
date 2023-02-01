@@ -34,5 +34,5 @@ create_data_style(
 \item{gemeinde}{if true formating for Gemeinde tables will be included (bold for Bezirk and Kanton) (default = FALSE)}
 }
 \description{
-create_data_style
+Function to insert and style data in the style of the Internettabellen
 }

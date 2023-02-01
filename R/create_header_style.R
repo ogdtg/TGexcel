@@ -1,4 +1,6 @@
 #' create_header_style
+#' 
+#' Function to insert and style a header in the style of the Internettabellen
 #'
 #' @param wb a workbook object
 #' @param sheet the name of the Sheet in the workbook object
