@@ -40,6 +40,8 @@ vignettes/*.pdf
 
 # Excel files
 *.xlsx
+*.xlsm
 
 # Other
 FILES/
+
