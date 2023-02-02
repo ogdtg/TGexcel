@@ -10,7 +10,9 @@ customize_style(
   valign = NULL,
   decoration = NULL,
   fontName = NULL,
-  fontSize = NULL
+  fontSize = NULL,
+  date = FALSE,
+  dateformat = "dd.mm.yyyy"
 )
 }
 \arguments{
@@ -25,6 +27,10 @@ customize_style(
 \item{fontName}{name of the Font. Default = "Arial"}
 
 \item{fontSize}{font size in pt. Default = 10}
+
+\item{date}{whether format should represent a date (default = FALSE)}
+
+\item{dateformat}{formating of dates (default = 'dd.mm.yyyy')}
 }
 \value{
 customized style of template openxlsx::Style

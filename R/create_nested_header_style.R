@@ -48,10 +48,21 @@ create_nested_header_style <-  function(wb, sheet, vars_level1, vars_level2, nes
 
 
   }
+  
+  vars_level2_style_mod <- vars_level2_style$copy()
+  vars_level2_style_mod$borderTop <- NULL
+  vars_level2_style_mod$borderBottom <- NULL
 
-  create_varnames_style(wb = wb, sheet=sheet, startRow = startRow+1,var_names = vars_level2,style = vars_level2_style,...)
+  create_varnames_style(wb = wb, sheet=sheet, startRow = startRow+1,var_names = vars_level2,style = vars_level2_style_mod,...)
   create_varnames_style(wb = wb, sheet=sheet, startRow = startRow,ncol = lv2,style_only = TRUE,style = vars_level1_style,...)
-
+  
+  # # sTYLES WITHOUT BORDER
+  varname_no_border <- vars_level1_style$copy()
+  varname_no_border$borderTop <- NULL
+  varname_no_border$borderBottom <- NULL
+  # varname_no_border_bottom <- vars_level1_style$copy()
+  # varname_no_border_bottom$borderBottom <- NULL
+  
 
   if (nesting=="even") {
     merge_size <- lv2/lv1
@@ -108,10 +119,22 @@ create_nested_header_style <-  function(wb, sheet, vars_level1, vars_level2, nes
                             startRow = startRow)
       }
       
+      # Correct border settings
+      if (nesting[i]==1) {
+        openxlsx::addStyle(wb,
+                           sheet,
+                           rows = startRow,
+                           cols = start,
+                           style = varname_no_border)
+      }
+      
+      
 
       start <- merge_size+start
 
     }
+    
+
 
   }
 

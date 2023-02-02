@@ -98,7 +98,7 @@ create_table_style <- function(wb,
     startRow = start_data,
     data = data,
     datenquelle = datenquelle,
-    gemeinde = gemeinde_format
+    gemeinde_fomat = gemeinde_format
   )
   
   # Footnotes

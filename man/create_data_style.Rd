@@ -8,12 +8,10 @@ create_data_style(
   wb,
   sheet,
   startRow,
-  date = NULL,
   year = NULL,
   startCol = 1,
   data,
-  datenquelle = NULL,
-  gemeinde = FALSE
+  gemeinde_format = FALSE
 )
 }
 \arguments{
@@ -23,15 +21,13 @@ create_data_style(
 
 \item{startRow}{row in which the data should start}
 
-\item{date}{index of a date variable (default=NULL)}
-
 \item{year}{index of a year variable (default=NULL)}
 
 \item{startCol}{col in which the data should start}
 
 \item{data}{a data.frame}
 
-\item{gemeinde}{if true formating for Gemeinde tables will be included (bold for Bezirk and Kanton) (default = FALSE)}
+\item{gemeinde_format}{if true formating for Gemeinde tables will be included (bold for Bezirk and Kanton) (default = FALSE)}
 }
 \description{
 Function to insert and style data in the style of the Internettabellen

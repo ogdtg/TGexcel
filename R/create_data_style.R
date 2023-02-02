@@ -5,28 +5,27 @@
 #' @param wb a workbook object
 #' @param sheet the name of the Sheet in the workbook object
 #' @param startRow row in which the data should start
-#' @param date index of a date variable (default=NULL)
 #' @param year index of a year variable (default=NULL)
 #' @param startCol col in which the data should start
 #' @param data a data.frame
-#' @param gemeinde if true formating for Gemeinde tables will be included (bold for Bezirk and Kanton) (default = FALSE)
+#' @param gemeinde_format if true formating for Gemeinde tables will be included (bold for Bezirk and Kanton) (default = FALSE)
 #'
 #' @export
 #'
-create_data_style <- function(wb,sheet,startRow, date = NULL,year = NULL, startCol=1, data, datenquelle = NULL, gemeinde = FALSE) {
+create_data_style <- function(wb,sheet,startRow,year = NULL, startCol=1, data, gemeinde_format = FALSE) {
 
-  style_number <- number_normal_10_right
-  style_year <- jahr_normal_10_right
 
-  style_gemeinde_number <- gemeinde_number_normal_10_right
-  style_gemeinde_year <- gemeinde_jahr_normal_10_right
-
-  style_gemeinde_year$fontDecoration <- "BOLD"
-  style_gemeinde_number$fontDecoration <- "BOLD"
+  # for (i in 1:ncol(data)){
+  #   c <- class(data[i])
+  #   if (c=="Date") {
+  #     data[i] <- format(data[i], "%d.%m.%Y")
+  #   }
+  # }
 
   if (is.null(year)) {
     year = 0
   }
+  
 
   openxlsx::writeData(x = data,
                       wb = wb,
@@ -34,59 +33,43 @@ create_data_style <- function(wb,sheet,startRow, date = NULL,year = NULL, startC
                       startCol = startCol,
                       startRow = startRow,
                       colNames = FALSE)
-
-  a <- lapply(1:ncol(data), function(x) {
-
-    if (year == x) {
-      openxlsx::addStyle(wb = wb,
-                         sheet = sheet,
-                         cols = startCol+x-1,
-                         rows = startRow:(startRow+nrow(data)-1),
-                         style = style_year)
-
-
-    } else {
-      openxlsx::addStyle(wb = wb,
-                         sheet = sheet,
-                         cols = startCol+x-1,
-                         rows = startRow:(startRow+nrow(data)-1),
-                         style = style_number)
-
-    }
-
-
-
-  })
-
-  if (gemeinde == TRUE) {
-    b <- lapply(1:ncol(data), function(x) {
-      if (year == x) {
-        openxlsx::addStyle(wb = wb,
-                           sheet = sheet,
-                           cols = startCol+x-1,
-                           rows = gemeinde_format_vec+startRow-1,
-                           style = style_gemeinde_year)
-
-
-
+  
+  for (i in 1:ncol(data)) {
+    if (year == i) {
+      style <- generic_year_data$copy()
+    } else if (is.numeric(data[[i]])) {
+      if (any(round(data[i]) != data[i])) {
+        style <- generic_decimal_data$copy()
       } else {
-
-        openxlsx::addStyle(wb = wb,
-                           sheet = sheet,
-                           cols = startCol+x-1,
-                           rows = gemeinde_format_vec+startRow-1,
-                           style = style_gemeinde_number)
+        style <- generic_number_data$copy()
       }
-
-    })
+    } else if (class(data[[i]])=="Date") {
+      style <- customize_style(template = generic_number_data, date = TRUE)
+    } else {
+      style <- generic_number_data$copy()
+    }
     
-    # Zeilenhöhe setzen
+
+    openxlsx::addStyle(wb = wb,
+                       sheet = sheet,
+                       cols = startCol+i-1,
+                       rows = startRow:(startRow+nrow(data)-1),
+                       style = style)
+  if (gemeinde_format) {
+    style_gemeinde <- customize_style(template = style, decoration = "BOLD")
+    openxlsx::addStyle(wb = wb,
+                       sheet = sheet,
+                       cols = startCol+i-1,
+                       rows = gemeinde_format_vec+startRow-1,
+                       style = style_gemeinde)
+    
     openxlsx::setRowHeights(wb=wb, sheet = sheet, rows = gemeinde_format_vec+startRow-1, heights = 30)
+    
   }
-
-
-
-
+    
+    
+    
+  }
 
 
 }

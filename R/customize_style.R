@@ -8,6 +8,8 @@
 #' @param decoration font decoration ("bold", "strikeout", "italic", "underline", "underline2", "accounting" or"accounting2"). Default = NULL
 #' @param fontName name of the Font. Default = "Arial"
 #' @param fontSize font size in pt. Default = 10
+#' @param date whether format should represent a date (default = FALSE)
+#' @param dateformat formating of dates (default = 'dd.mm.yyyy')
 #'
 #' @return customized style of template openxlsx::Style
 #' @export
@@ -18,7 +20,9 @@ customize_style <-
            valign = NULL,
            decoration = NULL,
            fontName = NULL,
-           fontSize = NULL) {
+           fontSize = NULL,
+           date = FALSE,
+           dateformat = "dd.mm.yyyy") {
     
     if (!is.null(template)) {
       if (class(template) == "Style") {
@@ -48,6 +52,11 @@ customize_style <-
       
     }
     
+    
+    if(date) {
+      options(openxlsx.dateFormat = dateformat)
+      style$numFmt$numFmtId <- "14"
+    }
     
     # Customize style
     if (!is.null(halign)) {
