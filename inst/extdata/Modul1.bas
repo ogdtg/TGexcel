@@ -1,12 +1,12 @@
 Attribute VB_Name = "Modul1"
-Sub AddFooterHeaderImage()
+Sub AddFooterHeaderImage(imagePath as String)
 'PURPOSE: Insert Image File into Spreadsheet Header or Footer on every selected worksheet
 'SOURCE: www.TheSpreadsheetGuru.com/the-code-vault
 
 'Dim Fname As String
 Dim sht As Worksheet
 Dim headerOne as String
-Dim ImagePath As String
+'Dim ImagePath As String
 Dim Validation As String
 Dim pct as Double
 
@@ -15,7 +15,7 @@ headerOne = "Staatskanzlei"
 
 
 'Where is Image Located?
-  ImagePath = "Y:\SK\SKStat\Internet\media\image1.png"
+  'ImagePath = "Y:\SK\SKStat\Internet\media\image1.png"
   'Fname = ThisWorkbook.FullName
   
 'Does the Image File Exist?

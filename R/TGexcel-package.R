@@ -2,6 +2,8 @@
 "_PACKAGE"
 
 ## usethis namespace: start
+#' @importFrom dplyr bind_rows
+#' @importFrom dplyr filter
 #' @importFrom openxlsx setRowHeights
 #' @importFrom purrr discard
 #' @importFrom purrr map

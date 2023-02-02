@@ -11,6 +11,7 @@ URL: {{ URL }}
 BugReports: {{ BugReports }}
 Encoding: UTF-8
 Imports: 
+    dplyr,
     magrittr,
     openxlsx,
     purrr,

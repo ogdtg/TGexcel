@@ -36,6 +36,8 @@ save_tg_workbook <- function(wb,filename,tg_header = TRUE, overwrite = FALSE) {
   
   vbs_file <- normalizePath(system.file("extdata", "importAndRunModule.vbs", package = "TGexcel"))
   modul1 <- normalizePath(system.file("extdata", "Modul1.bas", package = "TGexcel"))
+  imagePath <- normalizePath(system.file("extdata", "image1.png", package = "TGexcel"))
+
   # 
   # #Neuer Header einfügen
   if (tg_header) {
@@ -44,7 +46,8 @@ save_tg_workbook <- function(wb,filename,tg_header = TRUE, overwrite = FALSE) {
                             vbs_file,
                             filename,
                             modul1,
-                            '"AddFooterHeaderImage"',
+                            # '"AddFooterHeaderImage"',
+                            imagePath,
                             sep = " ")
     test <- system(command = system_command,
            wait = TRUE)
