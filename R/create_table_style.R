@@ -104,20 +104,14 @@ create_table_style <- function(wb,
   # Footnotes
   
   if(length(footnotes)> 0) {
-    footnote_style <- customize_style(template = generic_number_data, fontSize = 9) 
-
-    footer <- lapply(seq_along(footnotes), function(i) {
-      create_style_generic(wb,sheet, startRow = start_data+nrow(data)+i,ncol=1, style = footnote_style, startCol = 1, text = footnotes[i])
-  
-    })
+    add_footnotes(wb,sheet,startRow = start_data+nrow(data)+i, footnotes=footnotes)
   }
   
 
   
   # Datenquelle
   if (!is.null(datenquelle)) {
-    
-    create_style_generic(wb,sheet, startRow = start_data+nrow(data)+length(footnotes)+2,ncol=1, style = datenquelle_italic_9_left, startCol = 1, text = paste0("Datenquelle: ",datenquelle))
+    add_datenquelle(wb,sheet,startRow=start_data+nrow(data)+length(footnotes)+2, datenquelle=datenquelle)
     
   }
   
