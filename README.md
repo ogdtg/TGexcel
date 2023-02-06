@@ -41,7 +41,7 @@ saveWorkbook(wb, "test.xlsx", overwrite = TRUE)
 ```
 Das Ergebnis nach dem Speichern sieht wie folgt aus:
 
-![Excel Header](https://github.com/ogdtg/TGexcel/blob/main/img/01_header.PNG)
+![Excel Header](https://github.com/ogdtg/TGexcel/blob/main/img/02_header.PNG)
 
 
 ## Subtitel (subheader)
@@ -114,7 +114,7 @@ Das bedeutet, dass
 - `SVar2` genau 3 untergeordnte Variablen besitzt (`Var2`,`Var3` und `Var4`) und
 - `SVar3` genau 2 untergeordnte Variablen besitzt (`Var5` und`Var6`)
 
-````r
+```r
 wb <- loadWorkbook("test.xlsx")
 create_nested_header_style(wb = wb,
                            sheet = "Test",
