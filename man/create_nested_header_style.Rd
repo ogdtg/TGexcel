@@ -10,7 +10,7 @@ create_nested_header_style(
   vars_level1,
   vars_level2,
   nesting = "even",
-  startRow,
+  startRow = 3,
   vars_level1_style = varname_normal_10_left,
   vars_level2_style = varname_normal_10_left,
   ...
@@ -27,7 +27,7 @@ create_nested_header_style(
 
 \item{nesting}{if the variables should be evenly distributed, then provide the string "even" (= default). If the variables should NOT be evenly distributed then provide a numeric vector with the same length as vars_level1. The given integers indicate how many variables from level 2 are nested below one variable from level 1}
 
-\item{startRow}{row in which the subheader should be placed (default = 2)}
+\item{startRow}{row in which the variable names should be placed (default = 3)}
 
 \item{vars_level1_style}{style for main variables. Default is varname_normal_10_left}
 
