@@ -177,6 +177,8 @@ create_nested_header_style(
   nesting = c(1, 1, 1, 1, 2, 1, 2, 1)
 )
 
+saveWorkbook(wb, "test_04.xlsx", overwrite = TRUE)
+
 ```
 
 ![Excel Nested Uneven](https://github.com/ogdtg/TGexcel/blob/main/img/07_nested_uneven.PNG)
