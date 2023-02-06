@@ -243,7 +243,7 @@ create_table_style (
   subheader = "Test mit Wrapper[2] Funktion",
   varnames = c("", "Var2", "Var3", "Var4", "Var5", "Var6"),
   var_categories = c("SVar1", "SVar2", "SVar3"),
-  data,
+  data = data,
   datenquelle = "BEVNAT Kanton Thurgau",
   footnotes = c("1 Test der Funktion", "2 alle Funktionen zusammengefasst"),
   gemeinde_format = FALSE,
@@ -255,3 +255,140 @@ saveWorkbook(wb, "test_05.xlsx", overwrite = T)
 
 ```
 ![Excel Wrapper](https://github.com/ogdtg/TGexcel/blob/main/img/09_wrapper.PNG)
+
+
+## Kopfzeile einfügen
+
+Um die Kopfzeile mit Logo und Name des Amtes einzufügen, kann die `save_tg_workbook()` verwendet werden.
+Diese Funktion führt ein VBA Makro in der Excel aus. Dafür wird die Excel Datei kurz geöffnet und im Anschluss daran wieder geschlossen.
+
+```r
+
+wb <- loadWorkbook("test_05.xlsx")
+save_tg_workbook(wb,
+                 filename = "test_06.xlsx",
+                 tg_header = TRUE,
+                 overwrite = TRUE)
+```
+
+![Excel Kopfzeile](https://github.com/ogdtg/TGexcel/blob/main/img/10_kopfzeile.PNG)
+
+
+## Weitere Funktionen
+
+### Cellstyles erstellen und bearbeiten
+
+Im Package sind bereits mehrere Cellstyles enthalten. Diese können mit der `customize_style` Funktion rudimentär bearbeitet werden.
+
+````r
+
+wb <- loadWorkbook("test_05.xlsx")
+
+# Style bearbeiten
+varname_bold_left <- customize_style(template = "varname",
+                                     halign = "center",
+                                     decoration = "bold",
+                                     fontName = "Cambria",
+                                     fontSize = 14)
+
+# Style auf Zelle anwenden
+addStyle(wb = wb,
+         sheet = "TEST",
+         style = varname_bold_left,
+         rows = 3,
+         cols = 2)
+
+
+# WB speichern
+save_tg_workbook(wb,
+                 filename = "test_07.xlsx",
+                 tg_header = TRUE,
+                 overwrite = TRUE)
+
+
+```
+![Excel Kopfzeile](https://github.com/ogdtg/TGexcel/blob/main/img/11_style.PNG)
+
+
+### Fussnoten und Datenquelle
+
+Mit `add_footnotes` können Fussnoten, mit `add_datenquelle` die Datenquelle hinzugefügt werden
+
+```r
+
+wb <- loadWorkbook("test_05.xlsx")
+
+add_footnotes(
+  wb = wb,
+  sheet = "TEST",
+  startRow = 33,
+  footnotes = c("1 Neue Footnote", "2 Neue Footnote")
+)
+
+add_datenquelle(
+  wb = wb,
+  sheet = "TEST",
+  startRow = 35,
+  datenquelle =  "Neue Datenquelle"
+)
+
+# WB speichern
+save_tg_workbook(wb,
+                 filename = "test_08.xlsx",
+                 tg_header = TRUE,
+                 overwrite = TRUE)
+
+```
+![Excel Fussnote](https://github.com/ogdtg/TGexcel/blob/main/img/12_footnote.PNG)
+
+### Hochgestellte und tiefgestellte Ziffern
+
+Hoch- und tiefgestellte Zahlen können mit`[Zahl]` bzw. `~Zahl~` erstellt werden.
+
+```r
+wb <- createWorkbook()
+addWorksheet(wb,"Test")
+
+create_header_style(wb = wb, sheet = "Test", ncol = 6, text = "Hochgestellt[1] Tiefgestellt~2~")
+
+saveWorkbook(wb, "test_09.xlsx", overwrite = TRUE)
+
+```
+
+![Excel Fussnote](https://github.com/ogdtg/TGexcel/blob/main/img/13_hochtief.PNG)
+
+### NAs entfernen
+
+Beim Abspeichern kann es sein, dass Leere Zellen mit ungewollten NAs befüllt werden.
+
+```r
+# Pfad definieren
+path <- "Y:\\SK\\SKStat\\Internet\\1_Statistik\\1_Themen und Daten\\1_Bevölkerung und Haushalte\\1_01_Bevölkerungsstand\\Tabellen\\"
+
+# Workbook laden
+wb <- loadWorkbook(paste0(path,"2022_2015_BevGmd_Geschl_Nat.xlsx"))
+
+save_tg_workbook(wb,"test_10.xlsx")
+
+```
+![Excel NA](https://github.com/ogdtg/TGexcel/blob/main/img/14_na.PNG)
+
+
+Zu diesem Zwecke kann die `replace_nas_in_wb` verwendet werden.
+
+```r
+# Pfad definieren
+path <- "Y:\\SK\\SKStat\\Internet\\1_Statistik\\1_Themen und Daten\\1_Bevölkerung und Haushalte\\1_01_Bevölkerungsstand\\Tabellen\\"
+
+# Workbook laden
+wb <- loadWorkbook(paste0(path,"2022_2015_BevGmd_Geschl_Nat.xlsx"))
+
+# NAs ersetzen
+replace_nas_in_wb(wb)
+
+save_tg_workbook(wb,"test_10.xlsx")
+
+```
+
+![Excel noNA](https://github.com/ogdtg/TGexcel/blob/main/img/15_nona.PNG)
+
