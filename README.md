@@ -217,3 +217,41 @@ saveWorkbook(wb, "test_04.xlsx", overwrite = T)
 
 ![Excel Data](https://github.com/ogdtg/TGexcel/blob/main/img/08_data.PNG)
 
+
+## Wrapper Funktion für gesamte Tabelle
+
+Tabellen mit einfachen oder einfach verschachtelten Variablennamen können mit der `create_table_style` Funktion erstellt werden. Die Funktion beinhaltet alle oben beschriebenen Funktionen.
+
+Beispiel:
+
+```r
+
+wb <- createWorkbook()
+addWorksheet(wb, "TEST")
+
+data <- data.frame(v1 = LETTERS, 
+                   v2 = letters, 
+                   v3 = 1:26,
+                   v4 = runif(26)*100,
+                   v5 = seq.Date(Sys.Date(), to = Sys.Date()+26-1,by="day"),
+                   v6 = 1996:2021)
+
+create_table_style (
+  wb = wb,
+  sheet = "TEST",
+  header = "Das ist ein Test[1]",
+  subheader = "Test mit Wrapper[2] Funktion",
+  varnames = c("", "Var2", "Var3", "Var4", "Var5", "Var6"),
+  var_categories = c("SVar1", "SVar2", "SVar3"),
+  data,
+  datenquelle = "BEVNAT Kanton Thurgau",
+  footnotes = c("1 Test der Funktion", "2 alle Funktionen zusammengefasst"),
+  gemeinde_format = FALSE,
+  nesting = c(1, 3, 2),
+  year = 6
+)
+
+saveWorkbook(wb, "test_05.xlsx", overwrite = T)
+
+```
+![Excel Wrapper](https://github.com/ogdtg/TGexcel/blob/main/img/09_wrapper.PNG)

@@ -10,7 +10,6 @@ create_varnames_style(
   var_names = NULL,
   startRow = 3,
   style = varname_normal_10_left,
-  halign = "left",
   ...
 )
 }
@@ -24,8 +23,6 @@ create_varnames_style(
 \item{startRow}{row in which the subheader should be placed (default = 2)}
 
 \item{style}{an openxlsx::Style element. Default is current "Internettabellen" variable names style}
-
-\item{halign}{horizontal alignment (default is left)}
 
 \item{ncol}{only necessary if var_names are NULL (style_only). Provide a positive integer.}
 }

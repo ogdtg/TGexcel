@@ -36,7 +36,8 @@ create_table_style <- function(wb,
                                header_style = header_bold_12_left,
                                subheader_style = subheader_normal_10_left,
                                varnames_style = varname_normal_10_left,
-                               var_categories_style = varname_normal_10_left) {
+                               var_categories_style = varname_normal_10_left,
+                               ...) {
   if (!is.null(nesting) & is.null(var_categories)) {
     stop("If nesting != NULL, var_categories must be provided.")
   }
@@ -51,9 +52,9 @@ create_table_style <- function(wb,
     )
   }
 
-  if (nrow(data) != nrow(gemeinde)) {
-    message(paste0("data has ",nrow(data)," rows, gemeinde data has ",nrow(gemeinde)))
-  }
+  # if (nrow(data) != nrow(gemeinde)) {
+  #   message(paste0("data has ",nrow(data)," rows, gemeinde data has ",nrow(gemeinde)))
+  # }
   
   create_header_style(
     wb,
@@ -97,14 +98,14 @@ create_table_style <- function(wb,
     sheet = sheet,
     startRow = start_data,
     data = data,
-    datenquelle = datenquelle,
-    gemeinde_fomat = gemeinde_format
+    gemeinde_format = gemeinde_format,
+    ...
   )
   
   # Footnotes
   
   if(length(footnotes)> 0) {
-    add_footnotes(wb,sheet,startRow = start_data+nrow(data)+i, footnotes=footnotes)
+    add_footnotes(wb,sheet,startRow = start_data+nrow(data)+2, footnotes=footnotes)
   }
   
 

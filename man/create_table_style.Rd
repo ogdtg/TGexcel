@@ -20,7 +20,8 @@ create_table_style(
   header_style = header_bold_12_left,
   subheader_style = subheader_normal_10_left,
   varnames_style = varname_normal_10_left,
-  var_categories_style = varname_normal_10_left
+  var_categories_style = varname_normal_10_left,
+  ...
 )
 }
 \arguments{
