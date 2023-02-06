@@ -120,7 +120,7 @@ create_nested_header_style(wb = wb,
                            sheet = "Test",
                            nesting = c(1,3,2),
                            vars_level1 = c("SVar1","SVar2","SVar3"),
-                           vars_level2 = c("Var1","Var2","Var3","Var4","Var5", "Var6"))
+                           vars_level2 = c("","Var2","Var3","Var4","Var5", "Var6"))
 
 
 
@@ -129,3 +129,55 @@ saveWorkbook(wb, "test_03.xlsx", overwrite = TRUE)
 ```
 
 ![Excel Nested Even](https://github.com/ogdtg/TGexcel/blob/main/img/06__nested_uneven.PNG)
+
+Durch Kombination von mehreren `create_nested_header_style` Funktionen können auch mehrfach verschachtelte Variablennamen erstellt werden.
+
+
+```r
+
+wb <- createWorkbook()
+sheet <- "TEST"
+addWorksheet(wb,sheet)
+
+#header erstellen
+create_header_style(wb, sheet, ncol = ncol(data), text = "Wohnbevölkerung der Gemeinden nach Nationalität und Geschlecht" )
+
+#subheader erstellen
+create_subheader_style(wb,
+                       sheet,
+                       ncol =  ncol(data),
+                       text = "Kanton Thurgau, 31.12.2026, ständige Wohnbevölkerung[1] in Personen und Anteile in %",
+                       startRow = 2)
+
+
+# 1. nested header erstellen
+create_nested_header_style(
+  wb,
+  sheet,
+  vars_level1 = c(
+    "BFS-Nr. [2]",
+    "Gemeinde",
+    "Total",
+    "Nach Nationalität",
+    "Nach Geschlecht",
+    "Date"
+  ),
+  vars_level2 = c("", "", "", "Schweiz", "Ausland", "", "Mann", "Frau", "", ""),
+  startRow = 3,
+  nesting = c(1, 1, 1, 3, 3, 1)
+)
+
+# 2. nested header erstellen
+create_nested_header_style(
+  wb,
+  sheet,
+  vars_level1 = c("", "", "", "Schweiz", "Ausland", "Mann", "Frau", ""),
+  vars_level2 = c("", "", "", "", "absolut", "in %", "", "absolut", "in%", ""),
+  startRow = 4,
+  nesting = c(1, 1, 1, 1, 2, 1, 2, 1)
+)
+
+```
+
+![Excel Nested Uneven](https://github.com/ogdtg/TGexcel/blob/main/img/07_nested_uneven.PNG)
+
