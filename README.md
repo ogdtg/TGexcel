@@ -12,7 +12,7 @@ Das Package macht es möglich. Titel, Subtitel und Variablennamen (auch verschac
 
 Da das Package auf `openxlsx` basiert, werden für alle Funktionen workbook-Objekte verwendet. Diese können entweder mit `createWorkbook()` neu erstellt, oder mit `loadWorkbook("path/to/file.xlsx")` bearbeitet werden.
 
-![alt text](http://url/to/img.png)
+![alt text](https://github.com/ogdtg/TGexcel/blob/main/img/01_aufbau.PNG)
 
 
 ## Installation
