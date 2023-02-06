@@ -183,3 +183,37 @@ saveWorkbook(wb, "test_04.xlsx", overwrite = TRUE)
 
 ![Excel Nested Uneven](https://github.com/ogdtg/TGexcel/blob/main/img/07_nested_uneven.PNG)
 
+
+## Daten (data)
+
+Die tatsächlichen Daten müssen vor dem Einfügen bereits in der richtigen Reihenfolge sein, was die Spalten angeht. Die im dataframe gespeicherten Variablennamen werden *NICHT* ins Excel File geschrieben, sondern müssen wie oben beschrieben manuell eingefügt werden.
+
+Mit der `create_data_style` kann ein dataframe mit den gewüschten Spezifikationen ins Excel File geschrieben werden.
+Dafür muss dieses Mal explizit eine `startRow` angegeben werden. Ausserdem kann der Parameter `gemeinde_format` auf `TRUE` gesetzt werden, damit die Tabelle im Stil der bisherigen Tabellen mit Gemeindebezug formatiert wird (Bezirke und Gesamtkanton fett). Ist eine Jahresvariable in den Daten enthalten, muss deren Spaltenindex für den Parameter `year` angegeben, um die korrekte Formatierung dieser Variable zu erreichen.
+
+Beispiel:
+```r
+
+#datensatz erstellen
+data <- gemeinde
+data$total <- sample(1000:200000, size = nrow(data))
+data$nat_ch <- sample(1000:100000, size = nrow(data))
+data$nat_ausl <- sample(1000:100000, size = nrow(data))
+data$nat_ausl_perc <- runif(nrow(data))*100
+data$sex_male <- sample(1000:100000, size = nrow(data))
+data$sex_fem <- sample(1000:100000, size = nrow(data))
+data$sex_fem_perc <-runif(nrow(data))*100 
+data$date <- seq.Date(Sys.Date(), to = Sys.Date()+nrow(data)-1,by="day")
+
+# Tabelle mit mehrfach verschachteltem Header laden
+wb <- loadWorkbook("test_04.xlsx")
+
+# Daten einfügen
+create_data_style(wb,sheet,startRow = 6, gemeinde = TRUE, data = data)
+
+saveWorkbook(wb, "test_04.xlsx", overwrite = T)
+
+```
+
+![Excel Data](https://github.com/ogdtg/TGexcel/blob/main/img/08_data.PNG)
+

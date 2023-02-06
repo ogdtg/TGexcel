@@ -15,12 +15,6 @@
 create_data_style <- function(wb,sheet,startRow,year = NULL, startCol=1, data, gemeinde_format = FALSE) {
 
 
-  # for (i in 1:ncol(data)){
-  #   c <- class(data[i])
-  #   if (c=="Date") {
-  #     data[i] <- format(data[i], "%d.%m.%Y")
-  #   }
-  # }
 
   if (is.null(year)) {
     year = 0
