@@ -280,7 +280,7 @@ save_tg_workbook(wb,
 
 Im Package sind bereits mehrere Cellstyles enthalten. Diese können mit der `customize_style` Funktion rudimentär bearbeitet werden.
 
-````r
+```r
 
 wb <- loadWorkbook("test_05.xlsx")
 
