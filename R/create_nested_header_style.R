@@ -88,7 +88,7 @@ create_nested_header_style <-  function(wb, sheet, vars_level1, vars_level2, nes
                                   startRow = startRow)
       }
       # Correct border settings
-      if (nesting[i]==1) {
+      if (merge_size==1) {
         openxlsx::addStyle(wb,
                            sheet,
                            rows = startRow,
