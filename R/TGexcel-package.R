@@ -4,6 +4,7 @@
 ## usethis namespace: start
 #' @importFrom dplyr bind_rows
 #' @importFrom dplyr filter
+#' @importFrom gplots col2hex
 #' @importFrom openxlsx setRowHeights
 #' @importFrom purrr discard
 #' @importFrom purrr map

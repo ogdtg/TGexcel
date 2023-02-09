@@ -12,6 +12,7 @@ BugReports: {{ BugReports }}
 Encoding: UTF-8
 Imports: 
     dplyr,
+    gplots,
     magrittr,
     openxlsx,
     purrr,
