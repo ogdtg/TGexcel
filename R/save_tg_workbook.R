@@ -9,7 +9,7 @@
 #'
 save_tg_workbook <- function(wb,filename,tg_header = TRUE, overwrite = FALSE) {
   
-  filename <- normalizePath(filename)
+  filename <- suppressWarnings(normalizePath(filename))
   
   if (!grepl("\\.xlsx$",filename)) {
     stop("filename must have the extension .xlsx")
