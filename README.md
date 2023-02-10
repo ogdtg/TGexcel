@@ -274,6 +274,41 @@ save_tg_workbook(wb,
 ![Excel Kopfzeile](https://github.com/ogdtg/TGexcel/blob/main/img/10_kopfzeile.PNG)
 
 
+## Daten einfügen in existierender Tabelle
+
+Manchmal müssen Daten in eine existierende Tabelle eingefügt werden. Mit der `insert_data_row` Funktion können Datenzeilen an einer beliebigen Stelle im Tabellenblatt eingefügt werden. Sämtliche Styles der darüberliegenden Zeile werden auf die neuen Zeilen übertragen.
+
+```r
+save_tg_workbook(wb, "test.xlsx", overwrite = T, tg_header =F)
+
+
+
+wb <- loadWorkbook("test_11.xlsx")
+
+df <- data.frame(
+  x1 = "20XX",
+  x2 = "Bezirk Testhausen",
+  x3 = 10000,
+  x4 = 10000,
+  x5 = 10000,
+  x6 = 50.0,
+  x7 = 10000,
+  x8 = 10000,
+  x9 = 50
+)
+
+insert_data_row(wb,
+                sheet = "2022",
+                insertRow = 7,
+                data = df,
+                dataStartRow = 6)
+
+save_tg_workbook(wb, "test_13.xlsx", overwrite = T, tg_header =F)
+
+```
+![Excel Insert](https://github.com/ogdtg/TGexcel/blob/main/img/16_insert.PNG)
+
+
 
 ## Cellstyles erstellen und bearbeiten
 

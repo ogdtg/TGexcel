@@ -22,6 +22,13 @@ create_nested_header_style <-  function(wb, sheet, vars_level1, vars_level2, nes
 
   # Length of nesting vec
   length_nest <- length(nesting)
+  
+  if (is.character(nesting) & length(nesting)==1){
+    if (nesting == "even") {
+      nesting <- c("even")
+      message("No nesting vector given. Variables will be evenly distributed")
+    }
+  }
 
   if (length_nest < 2) {
     if (modulu_slots != 0 & nesting == "even") {
@@ -64,7 +71,10 @@ create_nested_header_style <-  function(wb, sheet, vars_level1, vars_level2, nes
   # varname_no_border_bottom$borderBottom <- NULL
   
 
-  if (nesting=="even") {
+  if (is.character(nesting) & length(nesting)==1) {
+    if (nesting != "even") {
+      stop(paste0("Invalid nesting vector: ",nesting,".\n Please provide numeric vector or 'even'."))
+    }
     merge_size <- lv2/lv1
     start = 1
     for (i in 1: lv1) {

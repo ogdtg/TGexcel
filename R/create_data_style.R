@@ -32,7 +32,7 @@ create_data_style <- function(wb,sheet,startRow,year = NULL, startCol=1, data, g
     if (year == i) {
       style <- generic_year_data$copy()
     } else if (is.numeric(data[[i]])) {
-      if (any(round(data[i]) != data[i])) {
+      if (any(round(data[i]) != data[i], na.rm = T)) {
         style <- generic_decimal_data$copy()
       } else {
         style <- generic_number_data$copy()
@@ -67,3 +67,4 @@ create_data_style <- function(wb,sheet,startRow,year = NULL, startCol=1, data, g
 
 
 }
+
