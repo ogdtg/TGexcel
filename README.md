@@ -274,9 +274,10 @@ save_tg_workbook(wb,
 ![Excel Kopfzeile](https://github.com/ogdtg/TGexcel/blob/main/img/10_kopfzeile.PNG)
 
 
-## Weitere Funktionen
 
-### Cellstyles erstellen und bearbeiten
+## Cellstyles erstellen und bearbeiten
+
+### Komplette Styles
 
 Im Package sind bereits mehrere Cellstyles enthalten. Diese können mit der `customize_style` Funktion rudimentär bearbeitet werden.
 
@@ -309,6 +310,92 @@ save_tg_workbook(wb,
 ```
 ![Excel Kopfzeile](https://github.com/ogdtg/TGexcel/blob/main/img/11_style.PNG)
 
+
+### Einzelne Features hinzufügen
+
+Um einzelne Features wie zum Beispiel die Hintergrundfarbe oder die Schriftart zu verändern, ohne aber den Rest des vorhanden Celsstyles in einer Zelle zu überschreiben kann die `add_style_feature` Funktion und die daraus abgeleiteten Funktionen verwendet werden. Neben einem Workbookobject `wb` und dem Namen des Tabellenblatts `sheet` muss ein vector mit den zu verändernden Features, sowie ein Vektor mit den entsprechenden Werten angegeben werden. Hierbei ist es wichtige die korrekte Formatierung der Werte zu beachten, da ansonsten das xlsx File nicht korrekt abgespeichert werden kann. Es ist daher ratsam, die von der Funktion abgeleitetn Funktionen zu verwenden, die die korrekte Formatierung gewährleisten. Mehr Informationen zu den möglichen Features finden sich in der Dokumentation von `openxlsx::createStyle()`.
+
+
+```r
+wb <- loadWorkbook("test_11.xlsx")
+
+# Funktion ergänzt eine blaue, horizontale Linie unter der 10. und 15. Zeile, 
+# die sich über 9 Spalten erstreckt
+add_style_feature(
+  wb,
+  sheet,
+  rows = c(10,15),
+  cols =  c(1:9),
+  c("borderBottom", "borderBottomColour"),
+  c("thin", list(rgb = "FF0000FF"))
+)
+
+save_tg_workbook(wb, "test_12.xlsx", overwrite = T, tg_header = F)
+
+```
+#### Horizontale Linie
+
+Das oben Beschriebene kann auch durch `add_hline` erreicht werden, welche von `add_style_feature` abgeleitet wurde und nutzerfreundlicher ist.
+
+```r
+wb <- loadWorkbook("test_11.xlsx")
+
+# Funktion ergänzt eine blaue, horizontale Linie unter der 10. und 15. Zeile, 
+# die sich über 9 Spalten erstreckt
+add_hline(wb,
+          sheet,
+          rows = c(10,15),
+          ncol = 9,
+          style = "thin",
+          color = "blue",
+          below = TRUE)
+
+
+save_tg_workbook(wb, "test_12.xlsx", overwrite = T, tg_header = F)
+```
+#### Font fett, kursiv etc.
+
+Mit `add_decoration` kann der Text in einer oder mehrere Zellen fett, kursiv o.ä. gemacht werden (vgl. `openxlsx::createStyle()` für verfügbare Style Methoden)
+
+```r
+
+wb <- loadWorkbook("test_11.xlsx")
+
+# Macht den Text jeweils in der ersten, dritten und neunten Spalte
+# der zehnten, 20. und 30. Reihe fett
+add_decoration(
+  wb,
+  sheet,
+  rows = c(10, 20, 30),
+  cols = c(1, 3, 9),
+  decoration = "BOLD"
+)
+
+save_tg_workbook(wb, "test_12.xlsx", overwrite = T, tg_header = F)
+
+```
+#### Füllfarbe der Zelle
+
+Die Füllung einer Zelle kann mit `add_bg` verändert werden.
+
+```r
+wb <- loadWorkbook("test_11.xlsx")
+
+# Setzt die Füllung in der zwölften Reihe für die
+# ersten neun Spalten auf himmelblau (wie in Internettabellen verwendet) 
+add_bg(wb,
+       sheet,
+       rows = 12,
+       cols = c(1:9),
+       color = "#c5d9f1"
+)
+
+save_tg_workbook(wb, "test_12.xlsx", overwrite = T, tg_header = F)
+
+```
+
+
+## Weitere Funktionen
 
 ### Fussnoten und Datenquelle
 

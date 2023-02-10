@@ -20,6 +20,7 @@ add_hline <- function(wb,sheet,rows,ncol,color,style = "thin", below = TRUE, sta
     feature_names <- c("borderTop","borderTopColour")
   }
   
+  style <- openxlsx:::validateBorderStyle(style)
   color <- openxlsx:::validateColour(color)
   
   add_style_feature(wb,sheet, rows, cols = 1:ncol, feature_names = feature_names, feature_values = c(style,list(rgb = color)))
