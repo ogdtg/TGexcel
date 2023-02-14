@@ -51,7 +51,7 @@ insert_data_row <- function(wb,sheet,data, insertRow, dataStartRow){
   invisible(lapply(styles_bottom, function(x){
     addStyle(wb,
              sheet,
-             style = x$style,
+             style = x$style$copy(),
              rows = x$rows+numRows,
              cols = x$cols)
   }))
@@ -63,7 +63,7 @@ insert_data_row <- function(wb,sheet,data, insertRow, dataStartRow){
   invisible(lapply(styles_top, function(x){
     addStyle(wb,
              sheet,
-             style = x$style,
+             style = x$style$copy(),
              rows = suppressWarnings((x$rows+1):(x$rows+numRows)),
              cols = x$cols,
              gridExpand = T)
