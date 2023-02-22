@@ -308,6 +308,63 @@ save_tg_workbook(wb, "test_13.xlsx", overwrite = T, tg_header =F)
 ```
 ![Excel Insert](https://github.com/ogdtg/TGexcel/blob/main/img/16_insert.PNG)
 
+## Bestehende Files bearbeiten
+
+Mit den Basisfunktionen des `openxlsx` Packages können bestehende Excel Files mit neuen Daten befüllt werden. Dazu muss einfach ein bestehendes File mit `loadWorkbook` geöffnet werden. Anschliessend kann das gewünschte Tabellenblatt mit `cloneWorksheet` kopiert werden. Mit `writeData` können dann neue Daten eingefügt werden. Das alte Tabellenblatt kann mit `removeWorksheet` entfernt werden und das Workbook dann unter einem neuen Namen mit `save_tg_workbook` abgespeichert werden.
+
+
+
+```r
+# Jahr definieren
+jahr <- 2021
+# Pfad alte Tabellen
+path_excel <- paste0("Y:/SK/SKStat/R/Prozesse/vz_see/Erwerb_Ausbildung/erwerb_ausbildung/output/excel/",jahr-1,"/",jahr+1,"_Arbeitsmarktstatus_ab_2015.xlsx")
+
+#Workbook laden
+wb_am_status <- loadWorkbook(path_excel)
+
+# Alle Blätter ausser dem aktuellen löschen
+sheets_to_remove <- sheets(wb_am_status)
+
+# Tabellenblatt kopieren
+cloneWorksheet(wb_am_status, paste0(jahr,"_Personen"), clonedSheet = paste0(jahr-1,"_Personen"))
+
+# Dummy Datensatz erstellen
+rownum <- 6
+sample_df <- data.frame(x1 = sample(60000:200000,rownum),
+                        x2 = runif(rownum),
+                        x3 = sample(60000:200000,rownum),
+                        x4 = sample(60000:200000,rownum),
+                        x5 = sample(60000:100000,rownum),
+                        x6 = runif(rownum),
+                        x7 = sample(60000:100000,rownum),
+                        x8 = sample(60000:100000,rownum),
+                        x9 = sample(60000:100000,rownum),
+                        x10 = runif(rownum),
+                        x11 = sample(60000:100000,rownum),
+                        x12 = sample(60000:100000,rownum))
+
+# Daten einfügen
+writeData(wb_am_status, sheet = paste0(jahr,"_Personen"),x = sample_df, startCol = 2, startRow = 7, colNames = FALSE)
+
+# Subheader und Datenquelle bearbeiten
+writeData(wb_am_status, sheet = paste0(jahr,"_Personen"),x = paste0("Kanton Thurgau, ",jahr,", in Anzahl Personen"), startCol = 1, startRow = 2, colNames = FALSE)
+writeData(wb_am_status, sheet = paste0(jahr,"_Personen"),x = paste0("Datenquelle: Bundesamt für Statistik, Strukturerhebung ",jahr), startCol = 1, startRow = 22, colNames = FALSE)
+
+# Alle nicht gebrauchten Sheets löschen
+lapply(sheets_to_remove, function(x){
+  removeWorksheet(wb_am_status,sheet = x)
+})
+
+
+```
+
+
+**Vorher:**
+![Original](https://github.com/ogdtg/TGexcel/blob/main/img/17_origedit.PNG)
+
+**Nachher:**
+![Original](https://github.com/ogdtg/TGexcel/blob/main/img/18_newedit.PNG)
 
 
 ## Cellstyles erstellen und bearbeiten
