@@ -44,7 +44,7 @@ save_tg_workbook <- function(wb,filename,tg_header = TRUE, overwrite = FALSE) {
     # filename <- gsub("\\.xlsx","",filename)
     system_command <- paste("WScript",
                             vbs_file,
-                            filename,
+                            paste0('"""',filename,'"""'),
                             modul1,
                             # '"AddFooterHeaderImage"',
                             imagePath,
