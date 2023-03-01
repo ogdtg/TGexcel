@@ -17,13 +17,13 @@ add_hline <- function(wb,sheet,rows,ncol,color,style = "thin", below = TRUE, sta
   if(below == TRUE) {
     feature_names <- c("borderBottom","borderBottomColour")
   } else {
-    feature_names <- c("borderTop","borderTopColour")
+    feature_names <- list("borderTop","borderTopColour")
   }
   
   style <- openxlsx:::validateBorderStyle(style)
   color <- openxlsx:::validateColour(color)
   
-  add_style_feature(wb,sheet, rows, cols = 1:ncol, feature_names = feature_names, feature_values = c(style,list(rgb = color)))
+  add_style_feature(wb,sheet, rows, cols = 1:ncol, feature_names = feature_names, feature_values = list(style,list(rgb = color)))
 }
 
 

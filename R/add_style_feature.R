@@ -6,8 +6,8 @@
 #' @param sheet sheet name
 #' @param rows rows the style should be added to
 #' @param cols columns the style should be added to
-#' @param feature_names a character vector including the names of the features you wish to change (see [openxlsx::createStyle()])
-#' @param feature_values a vector of values for the  corresponding features from `feature_names`
+#' @param feature_names a list including the names of the features you wish to change (see [openxlsx::createStyle()])
+#' @param feature_values a list of values for the  corresponding features from `feature_names`
 #'
 #' @export
 #'
@@ -31,11 +31,11 @@ add_style_feature <- function(wb,sheet, rows,cols,feature_names, feature_values)
     for (i in 1:length(feature_names_mod)) {
       
       if (feature_names_mod[i] %in% c("fillBg","fillFg")) {
-        temp$fill[[feature_names_mod[i]]] <- feature_values[i]
+        temp$fill[[feature_names_mod[[i]]]] <- feature_values[[i]]
         next
       }
       
-      temp[[feature_names_mod[i]]] <- feature_values[i]
+      temp[[feature_names_mod[[i]]]] <- feature_values[[i]]
     }
     openxlsx::addStyle(wb,sheet = sheet, style = temp, rows = unique(x$rows), cols = unique(x$cols), gridExpand = T)
   }))

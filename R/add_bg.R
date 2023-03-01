@@ -16,5 +16,5 @@ add_bg <- function(wb,sheet,rows,cols,color){
   
   color <- openxlsx:::validateColour(color)
   
-  add_style_feature(wb,sheet, rows, cols = cols, feature_names = feature_names, feature_values = c(list(rgb = color)))
+  add_style_feature(wb,sheet, rows, cols = cols, feature_names = feature_names, feature_values = list(list(rgb = color)))
 }

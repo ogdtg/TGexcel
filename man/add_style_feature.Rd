@@ -15,9 +15,9 @@ add_style_feature(wb, sheet, rows, cols, feature_names, feature_values)
 
 \item{cols}{columns the style should be added to}
 
-\item{feature_names}{a character vector including the names of the features you wish to change (see [openxlsx::createStyle()])}
+\item{feature_names}{a list including the names of the features you wish to change (see [openxlsx::createStyle()])}
 
-\item{feature_values}{a vector of values for the  corresponding features from `feature_names`}
+\item{feature_values}{a list of values for the  corresponding features from `feature_names`}
 }
 \description{
 A Function to change specific parameters of a cellstyle without overwriting it.
