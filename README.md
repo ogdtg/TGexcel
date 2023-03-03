@@ -489,6 +489,43 @@ save_tg_workbook(wb, "test_12.xlsx", overwrite = T, tg_header = F)
 
 ## Weitere Funktionen
 
+### Spezielle Zahlenformate einfügen
+
+Existieren in einer Tabelle Zahlen die auf eine bestimmte Art gekennzeichnet werden sollen, z.B. mit `**` weil es sich um weniger als x Beochatungen handelt so kann dies mithilfe eines speziellen Zahlenformats in Excel bewerkstelligt werden ohne, dass die Zahl ihre Eigenschaft als Zahl verliert. Sofern in R ein Datensatz besteht, indem die entsprechenden Zellen bereits gekennzeichnet sind, kann die `add_special_numFmt` Funktion verwendet werden.
+
+Die Funktion sucht in einem gegebenen Datensatz nach einem bestimmten `pattern`, merkt sich die Position der matchenden Zellen, schreibt die Daten in das Workbook und wendet am Ende das gegebene Zahlenformat auf die enstprechenden Zellen an.
+
+**ACHTUNG**: Die Funktion kann NICHT auf Zellen angewendet werden, die keinerlei Styling enthalten.
+
+**Beispiel:**
+
+Wir haben folgenden Datensatz namens `test`:
+
+![Dataset Stars](https://github.com/ogdtg/TGexcel/blob/main/img/19_df_stars.PNG)
+
+Diesen möchten wir nun in ein Excel File schreiben. Anstelle der Sternchen möchten wir eckige Klammern um die Zahlen herum. In der Excel soll jedoch kein Text eingetragen werden, sondern das Zahlenformat soll beibehalten werden. Angenommen, die entsprechenden Zellen in der Excel Datei enthalten mindestens ein Style Attribut, dann gehen wir wie folgt vor:
+
+
+
+````r
+add_special_numfmt(wb=wb,
+                   sheet = "test",
+                   data = test,
+                   pattern = "\\*\\*",
+                   dataStart = 1,
+                   startCol = 1,
+                   prefix = "\\[",
+                   suffix = "\\]")
+
+```
+
+Wichtig sind die anführenden `\\`, welche vor *jedem einzelnen* character eingefügt werden müssen.
+
+Das Ergebnis sieht dann wie folgt aus:
+
+![Dataset Stars](https://github.com/ogdtg/TGexcel/blob/main/img/20_excel_stars.PNG)
+
+
 ### Fussnoten und Datenquelle
 
 Mit `add_footnotes` können Fussnoten, mit `add_datenquelle` die Datenquelle hinzugefügt werden
