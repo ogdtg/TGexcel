@@ -20,6 +20,10 @@ add_special_numfmt <- function(wb,sheet,data, pattern,startCol,dataStart,...) {
     dplyr::mutate_all( .funs = as.numeric)
   openxlsx::writeData(wb=wb,sheet=sheet,x = data,startRow = dataStart, 
                       startCol = startCol, colNames = FALSE) #Daten ins File schreiben
-  special_numFmt(wb=wb,sheet=sheet,index_df = index_df,dataStart=dataStart,...) #Special formats anwenden 
+  if (nrow(data)!=0){
+    special_numFmt(wb=wb,sheet=sheet,index_df = index_df,dataStart=dataStart,colShift =startCol-1,...) #Special formats anwenden 
+  } else {
+    warning("No cell matches the pattern. No special numFmt will be applied.")
+  }
   
 }
