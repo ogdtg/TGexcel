@@ -367,6 +367,52 @@ lapply(sheets_to_remove, function(x){
 ![Original](https://github.com/ogdtg/TGexcel/blob/main/img/18_newedit.PNG)
 
 
+### Datenreihen einfügen
+
+Mit der `insert_data_row` Funktion können eine oder mehrere Datenreihen in eine bestehende Excel Datei übernommen werden. Dabei werden die Formate übernommen und die ZEilen nach unten verschoben. Neben den Standardparametern muss lediglich die Reihe definiert werden ab der das Einfügen starten soll (`insertRow`).
+
+```r
+# Daten einfügen
+insert_data_row(wb, sheet = "2000–2021",data = sample_df, dataStartRow = 5, insertRow = 27)
+
+```
+
+
+### Datenspalten einfügen
+
+Auch Datenspalten können in die Excel eingefügt werden. Hier gibt es mit `append_column` eine Funktion um Spalten am Ende der Tabelle einzufügen sowie die `insert_column` Funktion, die es ermöglicht, Spalten an einer beliebigen Stelle in der Tabelle einzufügen. Der Pareameter `col` bezeichnet dabei, wo die Daten genau eingefügt werden sollen. Der Parameter `patternCol` gibt an aus welcher Salte die Styles übernommen werden sollen.
+
+
+**insert_column**
+```r
+# Spalten irgendwo einfügen
+
+
+insert_column(
+  wb,
+  sheet = "4.2 Vergünstigung",
+  data = df,
+  col = 2,
+  dataStart = dataStart,
+  colNames = TRUE,
+  patternCol = 20
+)
+
+```
+
+**append_column**
+```r
+# Spalten am Ende anhängen
+
+append_column(wb,
+              sheet = "4.2 Vergünstigung",
+              data = df,
+              col = insert_col,
+              dataStart = dataStart,
+              patternCol = 20,
+              colNames = T)
+```
+
 ## Cellstyles erstellen und bearbeiten
 
 ### Komplette Styles
