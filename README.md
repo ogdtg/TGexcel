@@ -31,7 +31,7 @@ Mit der `create_header_style()` Funktion wird der Titel in das Excel File eingef
 
 ```r
 wb <- createWorkbook()
-addWorksheet(wn,"Test")
+addWorksheet(wb,"Test")
 
 create_header_style(wb = wb, sheet = "Test", ncol = 6, text = "Das ist der Titel")
 
