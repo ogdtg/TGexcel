@@ -4,7 +4,15 @@
 \alias{add_special_numfmt}
 \title{add_special_numfmt}
 \usage{
-add_special_numfmt(wb, sheet, data, pattern, startCol, dataStart, ...)
+add_special_numfmt(
+  wb,
+  sheet,
+  data,
+  pattern,
+  startCol,
+  dataStart,
+  position_prefix = TRUE
+)
 }
 \arguments{
 \item{wb}{a workbook object}
@@ -19,7 +27,7 @@ add_special_numfmt(wb, sheet, data, pattern, startCol, dataStart, ...)
 
 \item{dataStart}{row in which the numeric data in the file starts (e.g. first row after header)}
 
-\item{...}{see `special_numFmt`}
+\item{position_prefix}{if `TRUE` the pattern is inserted as prefix, otherwiese as suffix (default is prefix)}
 }
 \description{
 Function writes data to workbook and adds special numFmt for matching cells
