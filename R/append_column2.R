@@ -1,4 +1,4 @@
-#' append_column
+#' append_column (modified)
 #' 
 #' Function to append new column at the end of a table
 #'
@@ -11,32 +11,28 @@
 #' @param dataStart row index where the data starts
 #' @param data data.frame (ncol must be 1) to insert
 #' @param colNames if TRUE, colNames of data will be included (default is FALSE)
-#'
-#' @export
-#'
-append_column <-
-  function(wb,
-           sheet,
-           patternCol = NULL,
-           col,
-           startRow = 1,
-           endRow = NULL,
-           dataStart,
-           data,
-           colNames = FALSE) {
+#' 
+append_column2 <-
+  function (wb,
+            sheet,
+            patternCol = NULL,
+            col,
+            startRow = 1,
+            endRow = NULL,
+            dataStart,
+            data,
+            colNames = FALSE) {
     if (is.null(patternCol)) {
       patternCol <- col - 1
     }
     if (is.null(endRow)) {
       endRow <- nrow(data) + dataStart - 1
     }
-    styles <-
-      get_styles_of_area(wb, sheet, cols = patternCol, rows = startRow:endRow)
-    
+    styles <- get_styles_of_area(wb, sheet, cols = patternCol,
+                                 rows = startRow:endRow)
     if (colNames) {
       dataStart <- dataStart - 1
     }
-    
     writeData(
       wb,
       sheet,
@@ -45,7 +41,6 @@ append_column <-
       startRow = dataStart,
       colNames = colNames
     )
-    
     invisible(lapply(styles, function(x) {
       addStyle(
         wb,
@@ -56,5 +51,5 @@ append_column <-
       )
     }))
     
-    
-  } 
+    return(wb)
+  }

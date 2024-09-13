@@ -23,6 +23,90 @@ Die Development Version des Packages kann wie folgt installiert und genutzt werd
 devtools::install_github("ogdtg/TGexcel")
 library(TGexcel)
 ```
+
+## Neue Jahre als Reiter, Spalten oder Zeilen hinzufügen
+
+Da die meisten Excel Files dem gleichen Aufbau folgen, können mit diesen Funktionen auf sehr einfache Weise Dtaen neuer Jahre als Reiter, Zeile oder Spalte hinzugefügt werden. Alle drei Funktionen funktionieren dabei nach einem ähnlichen Muster
+
+### Jahr als Spalte
+
+Wenn ein Excel File aus einer Tabelle besteht, bei der jedes Jahr jeweils eine Spalte darstellt, kann die Funktion `create_excel_spalte` verwendet werden. Diese Funktion hängt für die Daten eines neuen Jahres eine Spalte im Excel File an, passt die Untertitel der Überschrift und ggf. den Namen des Reiters an (z.B. aus 2020-2022 wird 2020-2023).
+
+Zu beachten ist, dass als `data` Argument jeweils ein data.frame übergeben werden muss, bei welchem eine Datenspalte enthalten sein muss, die den Namen des Jahres trägt, welches hinzugefügt werden soll. Idealerweise gibt man der Funktion einen Datensatz mit nur einer Spalte, nämlcih der Jahresspalte in der die Daten stehen mit.
+
+```r
+
+year <- 2023
+
+path_old <- paste0("/r-proj/stat/ges/ambulante_Dienste/FMH_Aerztestatistik/output/T2_Aerzte_ambulant_Hauptfachgebiet_2000_",year-1,".xlsx")
+path_new <- paste0("/r-proj/stat/ges/ambulante_Dienste/FMH_Aerztestatistik/output/T2_Aerzte_ambulant_Hauptfachgebiet_2000_",year,"_FL.xlsx")
+
+wb <- loadWorkbook(path_old)
+
+data <- data.frame(x = c(1:13))
+names(data) <- paste0(year)
+
+wb <- create_xlsx_spalte(
+  xlsx_path = path_old,
+  year = year,
+  dataStart = 4,
+  data = data
+)
+save_tg_workbook(wb,path_new,tg_header = F,overwrite = T)
+
+```
+
+### Jahr als Zeile
+
+Wenn ein Excel File aus einer Tabelle besteht, bei der jedes Jahr jeweils eine Zeile darstellt, kann die Funktion `create_excel_zeile` verwendet werden. Diese Funktion hängt für die Daten eines neuen Jahres eine Reihe im Excel File an, passt die Untertitel der Überschrift und ggf. den Namen des Reiters an (z.B. aus 2020-2022 wird 2020-2023).
+
+Zu beachten ist, dass als `data` Argument jeweils ein data.frame übergeben werden muss, bei welchem eine Datenspalte  mit dem Namen `jahr `enthalten sein muss. Diese muss das entsprechende Jahr (`year`) enthalten. Der Datensatz sollte nur eine Zeile enthalten und die Variablenreihenfolge mussd er Reihenfolge im Excel enstprechen.
+
+```r
+
+year <- 2023
+
+
+wb <- loadWorkbook(path_old)
+
+data <- data.frame(jahr = year,a=1,b=2,c=2)
+
+wb <- create_xlsx_zeile(
+  xlsx_path = path_old,
+  year = year,
+  dataStart = 4,
+  data = data
+)
+save_tg_workbook(wb,path_new,tg_header = F,overwrite = T)
+
+```
+
+### Jahr als Reiter
+
+Wenn ein Excel File pro Jahr einen Reiter enthält, kann die Funktion `create_excel_zeile` verwendet werden. Diese Funktion hängt für die Daten eines neuen Jahres einen neuen Reiter mit dem entsprechenden Jahr als Namen im Excel File an und passt die Untertitel der Überschrift an.
+
+Zu beachten ist, dass der data.frame im `data` Argument jeweils den gleichen Aufbau haben muss, wie der Reiter des vorherigen Jahres. Die Variable dataStartCol zeigt an in welcher Reihe die Daten jeweils eingefügt werden. Default ist dabei 2, d.h. man geht davon aus, dass z.B. Gemeindenamen nicht im `data` Argument enthalten sind. Das Argument muss ansonsten an die Funktion mitgegeben werden (siehe unten).
+
+```r
+
+year <- 2023
+
+
+wb <- loadWorkbook(path_old)
+
+data <- data.frame(bezirk = c("Weinfelden","Frauenfeld"),a=c(1,2),b=c(3,4),c=c(5,6))
+
+wb <- create_xlsx_reiter(
+  xlsx_path = path_old,
+  year = year,
+  dataStart = 4,
+  data = data,
+  dataStartCol = 1
+)
+save_tg_workbook(wb,path_new,tg_header = F,overwrite = T)
+
+```
+
 ## Bestehende Files bearbeiten
 
 Mit den Basisfunktionen des `openxlsx` Packages können bestehende Excel Files mit neuen Daten befüllt werden. Dazu muss einfach ein bestehendes File mit `loadWorkbook` geöffnet werden. Anschliessend kann das gewünschte Tabellenblatt mit `cloneWorksheet` kopiert werden. Mit `writeData` können dann neue Daten eingefügt werden. Das alte Tabellenblatt kann mit `removeWorksheet` entfernt werden und das Workbook dann unter einem neuen Namen mit `save_tg_workbook` abgespeichert werden.
