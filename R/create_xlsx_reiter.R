@@ -16,7 +16,7 @@ create_xlsx_reiter <- function(xlsx_path,data,year,dataStart,dataStartCol=2){
   # create_directory(new_xlsx_path)
   
   # Workbook laden
-  wb <- loadWorkbook(file = xlsx_path)
+  wb <- openxlsx::loadWorkbook(file = xlsx_path)
   
   
   
@@ -24,14 +24,14 @@ create_xlsx_reiter <- function(xlsx_path,data,year,dataStart,dataStartCol=2){
   openxlsx::cloneWorksheet(wb, sheetName = paste0(year),clonedSheet = paste0(year-1))
   
   # Spalte hinzufügen
-  order <- worksheetOrder(wb)
-  worksheetOrder(wb) <- c(length(order),1:(length(order)-1))
+  order <- openxlsx::worksheetOrder(wb)
+  openxlsx::worksheetOrder(wb) <- c(length(order),1:(length(order)-1))
   
   
   
-  writeData(wb,sheet = paste0(year),x = data,startCol = dataStartCol,startRow = dataStart,colNames = F)
+  openxlsx::writeData(wb,sheet = paste0(year),x = data,startCol = dataStartCol,startRow = dataStart,colNames = F)
   
-  activeSheet(wb) <- paste0(year)
+  openxlsx::activeSheet(wb) <- paste0(year)
   
   # Untertitel updaten
   update_untertitel(wb, year)

@@ -22,7 +22,7 @@ add_data_spalte_jahr <- function(wb,year,data,dataStart,limit = NULL,sheet = 1){
   
   # Daten auf eine Spalte (Jahr) reduzieren
   data_mod <- data |>
-    select(all_of(as.character(year)))
+    dplyr::select(all_of(as.character(year)))
   
   wb <- append_column2(wb,
                        sheet = sheets(wb)[sheet],
@@ -73,7 +73,7 @@ add_data_zeile_jahr <- function(wb,year,data,dataStart,sheet = 1){
   
   #
   data_mod <- data |>
-    filter(jahr == year)
+    dplyr::filter(jahr == year)
   
   insert_data_row2(wb=wb,
                    sheet = sheets(wb)[sheet],

@@ -6,11 +6,11 @@
 #'
 #'
 update_untertitel <- function(wb,year,sheet = 1){
-  data <- read.xlsx(wb)
+  data <- openxlsx::read.xlsx(wb)
   
   untertitel <- data[1,1]
   
-  new_untertitel <- str_replace(untertitel,as.character(year-1),as.character(year)) |>
+  new_untertitel <- stringr::str_replace(untertitel,as.character(year-1),as.character(year)) |>
     get_superscript_numbers()
   
   create_subheader_style(wb,sheet = sheets(wb)[sheet],ncol = ncol(data),text = new_untertitel)
@@ -25,7 +25,7 @@ update_untertitel <- function(wb,year,sheet = 1){
 rename_sheet <- function(wb,year){
   
   sheet = sheets(wb)[1]
-  new_name <- str_replace(sheet,"\\d\\d\\d\\d$",as.character(year))
+  new_name <- stringr::str_replace(sheet,"\\d\\d\\d\\d$",as.character(year))
   
   renameWorksheet(wb,sheet, new_name)
 }
