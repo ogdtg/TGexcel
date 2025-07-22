@@ -12,6 +12,8 @@
 #'
 add_datenquelle <- function(wb,sheet,startRow, col = 1, datenquelle){
 
+  data("datenquelle_italic_9_left", package = "TGexcel", envir = environment())
+  
 
   create_style_generic(
     wb,
